@@ -28,6 +28,10 @@ namespace TulisanKita
             {
                 o.UseMySQL(Configuration.GetConnectionString("mysql"));
             });
+            services.AddAuthentication("CookieAuth").AddCookie("CookieAuth", option => {
+                option.LoginPath = "Account/Masuk";
+            });
+            
             services.AddControllersWithViews();
         }
 
@@ -45,6 +49,8 @@ namespace TulisanKita
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
