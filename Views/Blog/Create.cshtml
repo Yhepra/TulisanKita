@@ -1,0 +1,79 @@
+﻿@model Blog
+
+<div class="align-items-center">
+    <h3>Create Blog</h3>
+</div>
+<hr />
+<div class="row">
+    <div class="card-body">
+        <form asp-action="Create" method="post">
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" placeholder="Judul nya disini" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Content" class="control-label"></label>
+                <div id="editor">
+                    @*<p>Hello World!</p>
+                    <p>Some initial <strong>bold</strong> text</p>
+                    <p><br></p>*@
+                </div>
+                <textarea asp-for="Content" class="d-none" id="cc" name="Content"></textarea>
+            </div>
+            @* <div class="form-group">
+                <label asp-for="Content" class="control-label"></label>
+                <div id="summernote"></div>
+                <textarea asp-for="Content" class="form-control"></textarea>
+                <span asp-validation-for="Title" class="text-danger"></span>
+                </div>*@
+            <div class="form-group">
+
+                <label asp-for="CreateDate" class="control-label"></label>
+                <input asp-for="CreateDate" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input asp-for="Status" class="form-check-input" />@Html.DisplayNameFor(model => model.Status)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="index">Back to List</a>
+</div>
+
+   @*<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-lite.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-lite.js"></script>
+
+    <script>
+    $('#summernote').summernote({
+    placeholder: 'Write here...',
+    tabsize: 2,
+    height: 100
+    });
+    </script>*@
+
+@section scripts {
+<script>
+        $(document).ready(function () {
+            var quill = new Quill('#editor', {
+                modules: { toolbar: true },
+                theme: 'snow'
+            });
+
+            quill.on('text-change', function (delta, oldDelta, source) {
+                $("#cc").val(quill.getText())
+                console.log(quill.getText())
+            });
+        });
+    </script>
+}
